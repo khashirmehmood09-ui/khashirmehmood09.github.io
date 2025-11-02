@@ -1,34 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Hashir Qureshi | Data Scientist & ML Enthusiast</title>
-<link rel="icon" href="data:,">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hashir Qureshi | Portfolio</title>
 <style>
   body {
-    background: #071227;
-    color: #e6eef6;
+    margin: 0;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif;
+    color: #e0fefb;
+    background: radial-gradient(ellipse at center, #001a1a 0%, #000 100%);
+  }
+  canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+  header {
+    position: absolute;
+    top: 20px; right: 40px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #00ffd5;
+    text-shadow: 0 0 10px #00ffd5;
+  }
+  .center {
+    position: relative;
+    z-index: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-family: Arial, sans-serif;
     text-align: center;
   }
-  .container {
-    background: rgba(255,255,255,0.05);
-    padding: 40px;
-    border-radius: 14px;
+  .avatar {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 25px #00ffd5;
   }
-  h1 { color: #26c6da; }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: #e0fefb;
+  }
+  .links a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 25px;
+    border: 2px solid #00ffd5;
+    border-radius: 30px;
+    color: #00ffd5;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .links a:hover {
+    background: #00ffd5;
+    color: #000;
+  }
 </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Hashir Qureshi</h1>
-    <h3>Data Scientist & ML Enthusiast</h3>
-    <p>Welcome to my Data Science and ML world!</p>
+<canvas id="bg"></canvas>
+<header>Hashir Qureshi</header>
+<div class="center">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/akabab/avatars/png/1-avatar.png" alt="avatar">
+  <h1>Welcome to my Data Science and ML world</h1>
+  <div class="links">
+    <a href="https://khashirmehmood09.github.io" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/hashir-qureshi-67631b378" target="_blank">LinkedIn</a>
+    <a href="mailto:khashirmehmood09@gmail.com">Email</a>
   </div>
+</div>
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+window.addEventListener("resize",resize);
+resize();
+let dots = [];
+for(let i=0;i<120;i++){
+  dots.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,s:Math.random()*2,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#00ffd5";
+  dots.forEach(d=>{
+    d.x+=d.dx; d.y+=d.dy;
+    if(d.x<0||d.x>innerWidth)d.dx*=-1;
+    if(d.y<0||d.y>innerHeight)d.dy*=-1;
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,d.s,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 </body>
 </html>
